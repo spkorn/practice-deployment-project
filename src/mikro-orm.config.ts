@@ -10,6 +10,8 @@ export default defineConfig({
   user: process.env.DB_USER || 'user',
   password: process.env.DB_PASSWORD || 'password',
   migrations: {
+    allOrNothing: true,
+    snapshot: false,
     path: './dist/migrations',
     pathTs: './src/migrations',
   },
