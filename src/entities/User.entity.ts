@@ -1,4 +1,5 @@
 import { Entity, PrimaryKey, Property } from '@mikro-orm/postgresql';
+import { CreateUserBody } from '../modules/user/services/user.service';
 
 @Entity({ tableName: 'users' })
 export class UserEntity {
@@ -22,4 +23,11 @@ export class UserEntity {
     onUpdate: () => new Date(),
   })
   updatedAt = new Date();
+
+  static make(props: CreateUserBody): UserEntity {
+    const user = new UserEntity();
+    user.name = props.name;
+    user.email = props.email;
+    return user;
+  }
 }
