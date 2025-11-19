@@ -16,12 +16,16 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "3000:4000"
     depends_on:
       - postgres
-    env_file:
-      - .env
-    command: sh -c "npm run start:dev" # Or 'npm run start:prod' for production
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=app_db
+      - DB_USER=user
+      - DB_PASSWORD=password
+    command: sh -c "npm run migration:up && npm run start:dev" # Or 'npm run start:prod' for production
     # If using migrations with TypeORM/Prisma, you might add a command like:
     # command: sh -c "npm run migration:run && npm run start:dev"
 
